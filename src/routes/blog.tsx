@@ -16,7 +16,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ContactCTA } from "@/components/sections/ContactCTA";
 import { articles } from "@/data/articles";
-import { fadeUp, stagger, viewportOnce } from "@/lib/motion";
+import { fadeUp, stagger } from "@/lib/motion";
 
 export const Route = createFileRoute("/blog")({
   head: () => ({
@@ -110,9 +110,9 @@ function BlogPage() {
         </section>
 
         {/* CATEGORY FILTERS */}
-        <section className="sticky top-0 z-10 border-b border-navy-deep/10 bg-white/90 backdrop-blur-sm">
+        <section className="sticky top-20 z-10 border-b border-navy-deep/10 bg-white/90 backdrop-blur-sm">
           <div className="container-page">
-            <div className="flex flex-wrap items-center gap-2.5 overflow-x-auto py-5">
+            <div className="flex flex-wrap items-center gap-2.5 py-5">
               {CATEGORIES.map((c) => {
                 const isActive = c === category;
                 return (
@@ -140,19 +140,19 @@ function BlogPage() {
           <section className="py-16 md:py-20">
             <div className="container-page">
               <motion.div
+                key={`featured-label-${featured.slug}`}
                 variants={fadeUp}
                 initial="hidden"
-                whileInView="show"
-                viewport={viewportOnce}
+                animate="show"
                 className="mb-8 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-gold-ink"
               >
                 <span className="h-px w-8 bg-current" /> Featured
               </motion.div>
               <motion.div
+                key={`featured-card-${featured.slug}`}
                 variants={fadeUp}
                 initial="hidden"
-                whileInView="show"
-                viewport={viewportOnce}
+                animate="show"
               >
                 <Link
                   to="/blog/$slug"
@@ -230,10 +230,10 @@ function BlogPage() {
               </div>
             ) : (
               <motion.div
+                key={`${category}-${query.trim()}`}
                 variants={stagger(0.08)}
                 initial="hidden"
-                whileInView="show"
-                viewport={viewportOnce}
+                animate="show"
                 className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
               >
                 {gridArticles.map((a) => (
